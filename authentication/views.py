@@ -7,15 +7,15 @@ import authentication
 
 
 def home(request):
-    return render(request, "authentication/index.html")
+    return render(request, "index.html")
 
 
 def register(request):
-    return render(request, "authentication/register.html")
+    return render(request, "register.html")
 
 
 def login(request):
-    return render(request, "authentication/login.html")
+    return render(request, "login.html")
 
 
 def logout(request):
