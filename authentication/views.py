@@ -1,7 +1,9 @@
+import re
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth import authenticate, login
 
 import authentication
 
@@ -22,8 +24,8 @@ def register(request):
         pass1 = request.POST['pass1']
         pass2 = request.POST['pass2']
 
-        myuser = User.objects.create(username,email, pass1)
-        mysuer.first_name = fname
+        myuser = User.objects.create_user(username,email, pass1)
+        myuser.first_name = fname
         myuser.last_name = lname
 
         myuser.save()
@@ -36,6 +38,16 @@ def register(request):
 
 
 def login(request):
+
+    if request.method == "POST":
+        username = request.POST['username']
+        pass1 = request.POST['pass1']
+
+        user = authenticate(username=username, password=pass1)
+
+        if user is not None:
+            login(request, user)
+
     return render(request, "login.html")
 
 
